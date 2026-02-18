@@ -1,0 +1,23 @@
+# Daily AI News Summary
+
+### 2026-02-17
+- [India aims to attract over $200 billion in AI infrastructure investment by 2028, with tech giants like Amazon, Google, and Microsoft already committing $70 billion](https://techcrunch.com/2026/02/17/india-bids-to-attract-over-200b-in-ai-infrastructure-investment-by-2028/)
+- [Artificial intelligence will pressure India to improve workforce skills to create millions of jobs for its young people, says a senior government adviser](https://www.cnbctv18.com/technology/india-ai-talent-prosus-bcg-meity-ai-summit-2026-ws-l-19852033.htm/amp)
+- [India hopes to garner $200 billion in investments for data centers over the next few years to become a hub for artificial intelligence](https://apnews.com/article/india-modi-vaishnaw-ai-investments-4e170da0a3b883a9659569dd538e9019)
+- [Adani will invest $100 billion to build integrated renewable energy and data centers, offering hyperscale AI compute services to support Indian large language models](https://www.telecoms.com/ai/adani-to-spend-100bn-to-turn-india-into-an-ai-epicentre)
+- [Adani Group to invest $100 billion in AI infrastructure by 2035, the largest commitment in India so far](https://www.wsj.com/tech/indias-adani-group-to-invest-100-billion-on-ai-infrastructure-7d428962)
+- [AI in India is focusing on small language models to bring big impact to smallholder farming, despite numerous obstacles](https://agfundernews.com/ai-in-india-the-worlds-ai-back-office-is-betting-on-small-language-models-to-bring-big-impact-to-smallholder-farming)
+- [AI technologies are providing significant yield improvements and sustainable farming practices accessible to smallholder farmers across the Global South](https://www.devdiscourse.com/article/headlines/3807753-ai-revolutionizes-global-agriculture-from-smart-cow-necklaces-to-crop-predicting-satellites)
+- [India's AI Impact Summit was marred by logistical chaos on its opening day, despite being a landmark gathering of global leaders and tech executives](https://www.bbc.com/news/articles/ceqvjgrvpn3o)
+- [India has launched an AI-driven farmer advisory platform, Bharat-VISTAAR, to deliver real-time advisory to farmers](https://www.global-agriculture.com/india-region/india-launches-ai-driven-bharat-vistaar-to-deliver-real-time-advisory-to-farmers)
+- [The integration of AI into India's healthcare framework is poised to revolutionize service delivery by bridging critical gaps and reducing the burden on the medical workforce](https://www.tribuneindia.com/news/india/ai-to-cut-healthcare-workforce-burden-boost-doc-patient-bond/)
+- [India's fast-growing AI and hyperscale data center buildout is reshaping the country's digital infrastructure landscape](https://www.lightreading.com/data-centers/ai-driven-data-center-surge-redefines-india-s-fiber-landscape)
+- [Over $200 billion in AI investment is expected in India over the next two years, according to Minister Vaishnaw](https://www.babushahi.com/view-news.php?id=217332)
+- [AI and human creativity will shape the future of the workforce, with AI transforming design, media, storytelling, and innovation](https://www.deccanherald.com/business/ai-human-creativity-to-shape-future-workforce-3901030)
+- [Bharat-VISTAAR is an AI-enabled platform designed to provide farmers with real-time, voice-based advisory services](https://www.global-agriculture.com/faq-in-global-agriculture/bharat-vistaar-indias-ai-powered-farmer-advisory-platform-key-questions-answered/)
+- [Infosys has partnered with Anthropic to develop and deliver AI services to businesses in complex, regulated industries](https://www.wsj.com/tech/ai/infosys-anthropic-partner-on-ai-for-telecom-finance-manufacturing-4680fb5d)
+- [AI has the potential to reduce the burden on the healthcare workforce while strengthening the physician-patient relationship, says Union Health Secretary Punya Salila Srivastava](https://www.thehansindia.com/business/ai-has-potential-to-reduce-burden-on-healthcare-workforce-health-secy-1049133)
+
+### 2026-02-16
+- [The integration of AI into India's healthcare framework is poised to revolutionize service delivery by bridging critical gaps and reducing the burden on the medical workforce](https://www.lokmattimes.com/business/ai-should-reduce-burden-on-our-health-care-workforce-mohfw-secretary/amp/)
+- [AI and human creativity will shape the future of the workforce, with AI transforming design, media, storytelling, and innovation](https://www.deccanherald.com/business/ai-human-creativity-to-shape-future-workforce-3901030)
