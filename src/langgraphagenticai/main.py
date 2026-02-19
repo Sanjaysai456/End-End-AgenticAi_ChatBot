@@ -56,5 +56,5 @@ def load_langgraph_agenticai_app():
                  return
 
         except Exception as e:
-             st.error(f"Error: Graph set up failed- {e}")
+             st.error(f"Error: Graph set up is failed- {e}")
              return   
