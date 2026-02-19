@@ -16,5 +16,5 @@ class GroqLLM:
             llm=ChatGroq(api_key=groq_api_key,model=selected_groq_model)
 
         except Exception as e:
-            raise ValueError(f"Error Ocuured With Exception : {e}")
+            raise ValueError(f"Error Ocuured With exception : {e}")
         return llm
