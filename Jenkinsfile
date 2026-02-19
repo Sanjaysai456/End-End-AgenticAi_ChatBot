@@ -3,12 +3,6 @@ pipeline {
 
   stages {
 
-    stage('Clone Repo') {
-      steps {
-        checkout scm
-      }
-    }
-
     stage('Build Docker Image') {
       steps {
         sh 'docker build -t ainews:latest .'
