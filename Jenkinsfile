@@ -38,7 +38,8 @@ pipeline {
 stage('Deploy to EC2') {
     steps {
         sh """
-        ssh -i C:/jenkins/ec2-key1.pem -o StrictHostKeyChecking=no ubuntu@13.232.85.102 "
+        ssh -i C:/jenkins/ec2-key1.pem -o IdentitiesOnly=yes -o StrictHostKeyChecking=no ubuntu@13.232.85.102 "
+
             docker pull sanjaysai/streamlit-app:latest &&
             docker stop streamlit || true &&
             docker rm streamlit || true &&
