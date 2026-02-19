@@ -35,19 +35,18 @@ pipeline {
             }
         }
 
-        stage('Deploy to EC2') {
-            steps {
-                sshagent(['ec2-ssh-key']) {
-                    sh """
-                    ssh -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST '
-                        docker pull $IMAGE_NAME:latest &&
-                        docker stop streamlit || true &&
-                        docker rm streamlit || true &&
-                        docker run -d -p 8501:8501 --name streamlit $IMAGE_NAME:latest
-                    '
-                    """
-                }
-            }
-        }
+stage('Deploy to EC2') {
+    steps {
+        sh """
+        ssh -i C:/jenkins/ec2-key1.pem -o StrictHostKeyChecking=no ubuntu@13.232.85.102 "
+            docker pull sanjaysai/streamlit-app:latest &&
+            docker stop streamlit || true &&
+            docker rm streamlit || true &&
+            docker run -d -p 8501:8501 --name streamlit sanjaysai/streamlit-app:latest
+        "
+        """
+    }
+}
+
     }
 }
