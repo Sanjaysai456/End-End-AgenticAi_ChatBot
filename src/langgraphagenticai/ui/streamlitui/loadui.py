@@ -43,7 +43,7 @@ class LoadStreamlitUI:
                     st.warning("⚠️ Please enter your TAVILY_API_KEY key to proceed. Don't have? refer : https://app.tavily.com/home")
 
             if self.user_controls['selected_usecase']=="AI News":
-                st.subheader("📰 AI News Explorer ")
+                st.subheader("📰 AI_News Explorer ")
                 
                 with st.sidebar:
                     time_frame = st.selectbox(
