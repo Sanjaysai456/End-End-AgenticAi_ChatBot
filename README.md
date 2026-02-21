@@ -59,33 +59,3 @@ TAVILY_API_KEY=your_tavily_key
 4. Run the Application
 Bash
 streamlit run app.py
-🐳 Docker Deployment
-To run the application using Docker:
-
-Bash
-# Build the image
-docker build -t agentic-chatbot .
-
-# Run the container
-docker run -p 8501:8501 agentic-chatbot
-⛓️ CI/CD Pipeline (Jenkins)
-The project includes a Jenkinsfile that automates the following steps:
-
-Clone Repo: Pulls the latest code from the main branch.
-
-Build: Creates a Docker image labeled sanjaysai/streamlit-app.
-
-Push: Authenticates with Docker Hub and pushes the latest image.
-
-Note: Ensure you have configured dockerhub-creds in your Jenkins Credentials Provider.
-
-📝 Usage Guide
-Select LLM: Choose "Groq" and provide your API key.
-
-Choose Usecase:
-
-Basic: Standard AI chat.
-
-Chatbot with Web: Ask questions about current events (uses Tavily).
-
-AI News: Select "Daily" or "Weekly" and click "Fetch" to generate a summarized AI report.
