@@ -1,216 +1,91 @@
-🚀 End-to-End Agentic AI ChatBot with CI/CD (Jenkins + Docker)
+🤖 End-to-End Agentic AI Chatbot with LangGraph
+This project is a high-performance, modular Agentic AI Chatbot built using LangGraph, Groq (LLMs), and Tavily API. It features multiple specialized workflows, including a basic chatbot, a web-enabled research assistant, and an automated AI News aggregator and summarizer.
 
-An End-to-End Agentic AI ChatBot built using LangGraph + LangChain + Groq LLM + Tavily API + Streamlit, deployed using Docker and automated via Jenkins CI/CD Pipeline.
+The project is fully containerized and includes a Jenkins CI/CD pipeline for automated deployment.
 
-This project demonstrates:
+🌟 Key Features
+Multi-Agent Workflows: Built with LangGraph to handle stateful, multi-step agent logic.
 
-Stateful Agentic AI using LangGraph
+Three Modes of Operation:
 
-Tool-integrated chatbot (Web Search)
+Basic Chatbot: Direct interaction with Groq LLMs.
 
-AI News Fetching & Summarization
+Chatbot With Web: Real-time web searching using Tavily API.
 
-Dockerized deployment
+AI News Explorer: Fetches latest AI news (Daily/Weekly/Monthly), summarizes them into Markdown, and saves reports locally.
 
-Automated CI/CD using Jenkins
+High-Performance LLMs: Powered by Groq (Llama 3.1/3.3) for near-instant response times.
 
-Production-ready architecture
+Production Ready: CI/CD integration with Jenkins and Docker.
 
-🧠 Project Architecture
+🏗️ Architecture
+The project uses a StateGraph approach where each functionality is a node in the graph:
 
-This system uses LangGraph to build stateful AI agents with multiple use cases:
+Nodes: BasicChatbotNode, ChatbotWithToolNode, AINewsNode.
 
-Basic Chatbot
+State: Managed via a central State class to pass messages and data between nodes.
 
-Chatbot With Web (Tool Integration)
+Persistence: The AI News workflow automatically saves summaries to the ./AINews/ directory.
 
-AI News Explorer (Tavily + LLM Summarizer)
+🚀 Tech Stack
+Orchestration: LangGraph, LangChain
 
-🛠️ Tech Stack
+LLMs: Groq (Llama-3.3-70b, Llama-3.1-8b)
 
-🧠 LLM: Groq (LLaMA Models)
+Search Engine: Tavily API
 
-🔗 Agent Framework: LangChain
+Frontend: Streamlit
 
-🔄 Stateful Graph: LangGraph
+DevOps: Jenkins, Docker
 
-🌐 News API: Tavily
+Language: Python 3.10
 
-🎨 Frontend: Streamlit
+🔧 Installation & Setup
+1. Clone the Repository
+Bash
+git clone https://github.com/Sanjaysai456/End-End-AgenticAi_ChatBot.git
+cd End-End-AgenticAi_ChatBot
+2. Set Up Virtual Environment
+Bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+3. Environment Variables
+Create a .env file or export the following keys:
 
-🐳 Containerization: Docker
+Bash
+GROQ_API_KEY=your_groq_key
+TAVILY_API_KEY=your_tavily_key
+4. Run the Application
+Bash
+streamlit run app.py
+🐳 Docker Deployment
+To run the application using Docker:
 
-⚙️ CI/CD: Jenkins
+Bash
+# Build the image
+docker build -t agentic-chatbot .
 
-☁️ Container Registry: Docker Hub
+# Run the container
+docker run -p 8501:8501 agentic-chatbot
+⛓️ CI/CD Pipeline (Jenkins)
+The project includes a Jenkinsfile that automates the following steps:
 
-📌 Features
-1️⃣ Basic Chatbot
+Clone Repo: Pulls the latest code from the main branch.
 
-Uses Groq LLM
+Build: Creates a Docker image labeled sanjaysai/streamlit-app.
 
-Stateful message handling
+Push: Authenticates with Docker Hub and pushes the latest image.
 
-Simple conversation flow
+Note: Ensure you have configured dockerhub-creds in your Jenkins Credentials Provider.
 
-2️⃣ Chatbot With Web (Tool Integration)
+📝 Usage Guide
+Select LLM: Choose "Groq" and provide your API key.
 
-LLM bound with tools
+Choose Usecase:
 
-Uses Tavily Search API
+Basic: Standard AI chat.
 
-Conditional tool invocation using LangGraph
+Chatbot with Web: Ask questions about current events (uses Tavily).
 
-Dynamic graph routing
-
-3️⃣ AI News Explorer 📰
-Flow:
-Fetch News → Summarize News → Save as Markdown
-What It Does:
-
-Fetches AI-related news (India + Global)
-
-Supports:
-
-Daily
-
-Weekly
-
-Monthly
-
-Summarizes news using LLM
-
-Saves summary as:
-
-AINews/daily_summary.md
-AINews/weekly_summary.md
-Example Output Format:
-### 2026-02-20
-- OpenAI releases new AI model [Link]
-🏗️ Project Structure
-End-End-AgenticAi_ChatBot/
-│
-├── src/
-│   ├── graph/
-│   │   └── graph_builder.py
-│   ├── nodes/
-│   │   ├── basic_chatbot_node.py
-│   │   ├── chatbot_with_tool_node.py
-│   │   └── ai_news_node.py
-│   ├── LLMS/
-│   │   └── groqllm.py
-│   ├── ui/
-│   │   └── streamlitui/
-│
-├── AINews/
-├── Dockerfile
-├── Jenkinsfile
-├── requirements.txt
-└── app.py
-⚙️ How It Works
-🧩 GraphBuilder
-
-Based on selected use case:
-
-graph_builder.setup_graph(usecase)
-
-It dynamically builds:
-
-START → Chatbot → END
-
-START → Chatbot ↔ Tools
-
-Fetch → Summarize → Save → END
-
-🔐 Required API Keys
-
-You must provide:
-
-GROQ_API_KEY → https://console.groq.com/keys
-
-TAVILY_API_KEY → https://app.tavily.com/home
-
-🐳 Docker Setup
-Build Image
-docker build -t streamlit-agentic-ai .
-Run Container
-docker run -p 8501:8501 streamlit-agentic-ai
-
-App runs on:
-
-http://localhost:8501
-🔁 CI/CD Pipeline (Jenkins)
-
-Your Jenkins pipeline:
-
-1️⃣ Clone Repository
-
-Pulls from GitHub
-
-2️⃣ Build Docker Image
-docker build -t sanjaysai/streamlit-app:latest .
-3️⃣ Push to Docker Hub
-docker push sanjaysai/streamlit-app:latest
-
-This enables automated deployment after every commit.
-
-🚀 Deployment Flow
-Developer Push Code →
-Jenkins Trigger →
-Docker Image Build →
-Push to Docker Hub →
-Deploy to Server
-📦 requirements.txt
-langchain
-langgraph
-langchain_community
-langchain_core
-langchain_groq
-langchain_openai
-faiss-cpu
-streamlit
-tavily-python
-🎯 Why This Project Is Powerful
-
-✅ Uses Stateful Agentic AI
-✅ Dynamic Tool Routing
-✅ Production Docker Setup
-✅ CI/CD Automated Pipeline
-✅ Real-Time AI News Summarization
-✅ Modular Clean Architecture
-
-📸 Use Cases
-
-AI Research Assistant
-
-Tech News Digest Bot
-
-Web-Connected AI Chatbot
-
-DevOps + AI Portfolio Project
-
-Production-ready Agentic AI Demo
-
-🧠 Learning Outcomes
-
-From this project you demonstrate:
-
-LangGraph agent design
-
-Tool binding with LLM
-
-Tavily search integration
-
-Docker containerization
-
-Jenkins automation
-
-End-to-end AI system deployment
-
-👨‍💻 Author
-
-Sanjay Sai Poloji
-
-GitHub:
-https://github.com/Sanjaysai456
-
+AI News: Select "Daily" or "Weekly" and click "Fetch" to generate a summarized AI report.
