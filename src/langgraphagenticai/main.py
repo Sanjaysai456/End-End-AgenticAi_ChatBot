@@ -55,4 +55,4 @@ def load_langgraph_agenticai_app():
         ).display_result_on_ui()
 
     except Exception as e:
-        st.error(f"Application error: {e}")
+        st.error(f"Application_error: {e}")
