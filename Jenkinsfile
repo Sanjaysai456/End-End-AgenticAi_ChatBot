@@ -2,35 +2,43 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "sanjaysai/streamlit-app"
+        APP_NAME = "agentic-ai"
+        GROQ_API_KEY = credentials('GROQ_API_KEY')
+        TAVILY_API_KEY = credentials('TAVILY_API_KEY')
     }
 
     stages {
 
-        stage('Clone Repo') {
+        stage('Clone') {
             steps {
-                git branch: 'main', url: 'https://github.com/Sanjaysai456/End-End-AgenticAi_ChatBot.git'
+                git branch: 'main',
+                    url: 'https://github.com/Sanjaysai456/End-End-AgenticAi_ChatBot.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t $IMAGE_NAME:latest ."
+                sh 'docker build -t $APP_NAME .'
             }
         }
 
-        stage('Push to Docker Hub') {
+        stage('Stop Old Container') {
             steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-creds',
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASS'
-                )]) {
-                    sh """
-                    echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-                    docker push $IMAGE_NAME:latest
-                    """
-                }
+                sh 'docker stop $APP_NAME || true'
+                sh 'docker rm $APP_NAME || true'
+            }
+        }
+
+        stage('Run New Container') {
+            steps {
+                sh '''
+                docker run -d \
+                -p 8501:8501 \
+                -e GROQ_API_KEY=$GROQ_API_KEY \
+                -e TAVILY_API_KEY=$TAVILY_API_KEY \
+                --name $APP_NAME \
+                $APP_NAME
+                '''
             }
         }
     }
