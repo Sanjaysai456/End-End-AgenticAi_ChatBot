@@ -1,70 +1,69 @@
-# 🤖 End-to-End Agentic AI Chatbot with LangGraph
+# 🚀 End-to-End Agentic AI Chatbot
 
-⚡ Production-Ready | 🧠 Multi-Agent | 🌐 Web-Enabled | 📰 AI News Automation | 🚀 CI/CD Integrated
+## 🔧 Deployed on AWS EC2 with Jenkins CI/CD Pipeline
 
-## 🌟 Overview
+⚡ Production Deployment | 🧠 Multi-Agent AI | 🌐 Web-Enabled | 🐳 Dockerized | 🔁 Automated CI/CD
 
-A **high-performance, modular Agentic AI Chatbot** built using **LangGraph**, **Groq LLMs**, and **Tavily Search API**.
+## 🌟 Project Overview
 
-This system supports **multi-agent workflows**, real-time web search, and automated AI news summarization — all fully containerized with **Docker** and deployed via **Jenkins CI/CD**.
+This project is a **production-ready Agentic AI Chatbot system** built using:
 
-## 🔥 Key Features
+*   **LangGraph (StateGraph-based multi-agent workflow)  
+    **
+*   **Groq LLMs (Llama models)  
+    **
+*   **Tavily Search API  
+    **
+*   **Streamlit Frontend  
+    **
 
-✨ **Multi-Agent Architecture**
+The entire system is:
 
-*   Built using LangGraph StateGraph  
+✅ Dockerized  
+✅ Hosted on **AWS EC2  
+**✅ Integrated with **Jenkins CI/CD Pipeline running on EC2  
+**✅ Automatically deployed on every GitHub push
+
+# 🏗️ Production Architecture
+
+## 🔹 Infrastructure Setup (AWS)
+
+*   🖥️ **EC2 Instance  
+    **
+    *   Ubuntu Server  
+        
+    *   Docker Installed  
+        
+    *   Jenkins Installed  
+        
+    *   Git Installed  
+        
+    *   Security Groups configured (Ports 22, 8080, 8501 open)  
+        
+*   🔁 **Jenkins running inside EC2  
+    **
+    *   Configured with GitHub Webhook  
+        
+    *   Auto-triggers on push  
+        
+    *   Builds Docker image  
+        
+    *   Deploys updated container  
+        
+*   🌐 **Application deployed on EC2 Public IP  
+    **
+    *   Streamlit exposed on Port 8501  
+        
+    *   Accessible via:  
+        
+*   http://<EC2-Public-IP>:8501  
     
-*   Modular and scalable workflow nodes  
-    
 
-🤖 **Three Intelligent Modes**
+# 🧠 AI System Features
 
-1️⃣ **Basic Chatbot**
+## ✨ Multi-Agent Architecture (LangGraph)
 
-*   Direct interaction with Groq LLMs  
-    
-*   Ultra-fast inference  
-    
-
-2️⃣ **Chatbot With Web**
-
-*   Real-time web search via Tavily API  
-    
-*   Context-aware responses  
-    
-
-3️⃣ **AI News Explorer**
-
-*   Fetches latest AI news (Daily / Weekly / Monthly)  
-    
-*   Auto-summarizes into Markdown  
-    
-*   Saves reports locally in ./AINews/  
-    
-
-⚡ **High-Speed LLMs**
-
-*   Llama 3.3–70B  
-    
-*   Llama 3.1–8B  
-    
-*   Powered by Groq hardware acceleration  
-    
-
-🚀 **Production Ready**
-
-*   Dockerized environment  
-    
-*   Jenkins automated pipeline  
-    
-*   Clean modular codebase  
-    
-
-## 🏗️ Architecture
-
-### 🧩 StateGraph-Based Design
-
-Each feature runs as a **node** inside a centralized graph:
+Built using **StateGraph workflow orchestration**, where each capability is a modular node:
 
 *   BasicChatbotNode  
     
@@ -73,89 +72,113 @@ Each feature runs as a **node** inside a centralized graph:
 *   AINewsNode  
     
 
-### 🗂️ Centralized State Management
+Centralized state management ensures smooth data flow between agents.
 
-*   Custom State class  
+## 🤖 Intelligent Modes
+
+### 1️⃣ Basic AI Chatbot
+
+*   Direct Groq LLM interaction  
     
-*   Passes messages & metadata between nodes  
+*   Ultra-fast inference  
+    
+*   Lightweight conversational mode  
     
 
-### 💾 Persistence
+### 2️⃣ Web-Enabled Chatbot
 
-*   AI News reports auto-saved in:  
+*   Real-time search using Tavily API  
+    
+*   Tool-augmented reasoning  
+    
+*   Context-aware responses  
+    
+
+### 3️⃣ AI News Automation
+
+*   Fetches latest AI news  
+    
+*   Supports Daily / Weekly / Monthly summaries  
+    
+*   Converts to Markdown format  
+    
+*   Automatically saves reports inside:  
     
 
 ./AINews/
 
-## 🛠️ Tech Stack
+# ⚡ LLM Models Used
+
+*   Llama 3.3–70B  
+    
+*   Llama 3.1–8B  
+    
+*   Powered by Groq hardware acceleration  
+    
+
+# 🐳 Dockerized Deployment
+
+The entire application is containerized for portability and production reliability.
+
+### 🔹 Build Image
+
+docker build -t agentic-ai-chatbot .
+
+### 🔹 Run Container
+
+docker run -d -p 8501:8501 agentic-ai-chatbot
+
+# 🔁 Jenkins CI/CD Pipeline (Running on EC2)
+
+## ⚙️ CI/CD Flow
+
+1.  Developer pushes code to GitHub  
+    
+2.  GitHub webhook triggers Jenkins  
+    
+3.  Jenkins:  
+    *   Pulls latest code  
+        
+    *   Builds Docker image  
+        
+    *   Stops old container  
+        
+    *   Runs new container  
+        
+4.  Updated application goes live automatically  
+    
+
+## 📄 Jenkinsfile Overview
+
+Pipeline stages:
+
+*   ✔ Checkout Code  
+    
+*   ✔ Build Docker Image  
+    
+*   ✔ Stop Old Container  
+    
+*   ✔ Run New Container  
+    
+*   ✔ Verify Deployment  
+    
+
+This ensures zero manual deployment effort.
+
+# 🛠️ Tech Stack
 
 | Layer | Technology |
 | --- | --- |
 | 🧠 Orchestration | LangGraph, LangChain |
-| 🤖 LLMs | Groq (Llama 3.3-70B, Llama 3.1-8B) |
+| 🤖 LLM | Groq (Llama 3 Models) |
 | 🔎 Search | Tavily API |
 | 🎨 Frontend | Streamlit |
-| 🐳 DevOps | Docker, Jenkins |
 | 🐍 Backend | Python 3.10 |
+| 🐳 Containerization | Docker |
+| 🔁 CI/CD | Jenkins (Hosted on EC2) |
+| ☁️ Cloud | AWS EC2 |
 
-## 🚀 Installation & Setup
-
-### 1️⃣ Clone Repository
-
-git clone https://github.com/Sanjaysai456/End-End-AgenticAi\_ChatBot.git
-
-cd End-End-AgenticAi\_ChatBot
-
-### 2️⃣ Create Virtual Environment
-
-python -m venv venv
-
-**Activate:**
-
-*   Windows:  
-    
-
-venv\\Scripts\\activate
-
-*   Mac/Linux:  
-    
-
-source venv/bin/activate
-
-Install dependencies:
-
-pip install -r requirements.txt
-
-### 3️⃣ Configure Environment Variables
-
-Create a .env file:
-
-GROQ\_API\_KEY=your\_groq\_key
-
-TAVILY\_API\_KEY=your\_tavily\_key
-
-### 4️⃣ Run Application
-
-streamlit run app.py
-
-## 🐳 Docker Deployment
-
-Build image:
-
-docker build -t agentic-ai-chatbot .
-
-Run container:
-
-docker run -p 8501:8501 agentic-ai-chatbot
-
-## 🔁 CI/CD Pipeline
-
-✔ Jenkins pulls latest GitHub changes  
-✔ Builds Docker image  
-✔ Runs container automatically  
-✔ Ensures production stability
-
-## 📂 Project Structure
+# 📂 Project Structure
 
 ├── app.py
 
@@ -177,20 +200,28 @@ docker run -p 8501:8501 agentic-ai-chatbot
 
 └── README.md
 
-## 📌 Why This Project Stands Out
+# 🌍 Live Deployment
 
-*   True **Agentic workflow architecture  
+*   Hosted on **AWS EC2  
     **
-*   Real-time tool usage inside LLM reasoning  
+*   Jenkins running on same EC2 instance  
     
-*   Automated AI research pipeline  
+*   Docker container serving Streamlit app  
     
-*   Production-grade deployment setup  
-    
-*   Clean modular extensible design  
+*   Public access via EC2 IP  
     
 
-## 👨‍💻 Author
+# 🎯 Why This Project is Production-Grade
 
-**Sanjaysai  
-**AI & Systems Engineering Enthusiast
+✔ Real multi-agent workflow (LangGraph)  
+✔ Tool-augmented LLM reasoning  
+✔ Fully Dockerized  
+✔ Automated CI/CD pipeline  
+✔ Cloud deployment on AWS  
+✔ Scalable infrastructure-ready design
+
+# 👨‍💻 Author
+
+**Sanjaysai Poloji  
+**AI & Systems Engineering Enthusiast  
+Cloud | DevOps | Agentic AI | Production Systems
