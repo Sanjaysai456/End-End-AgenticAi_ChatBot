@@ -77,15 +77,71 @@ class GraphBuilder:
 
 
 
+    def multi_agent_build_graph(self):
+        """
+        Builds the unified Multi-Agent router graph.
+        """
+        from src.langgraphagenticai.nodes.router_node import RouterNode
+
+        router = RouterNode(self.llm)
+        basic_chatbot = BasicChatbotNode(self.llm)
+        
+        tools = get_tools()
+        tool_node = create_tool_node(tools)
+        obj_chatbot_with_node = ChatbotWithToolNode(self.llm)
+        chatbot_with_web = obj_chatbot_with_node.create_chatbot(tools)
+        
+        ai_news_node = AINewsNode(self.llm)
+
+        # Add nodes
+        self.graph_builder.add_node("router", router.process)
+        self.graph_builder.add_node("basic_chat", basic_chatbot.process)
+        self.graph_builder.add_node("web_search_chatbot", chatbot_with_web)
+        self.graph_builder.add_node("tools", tool_node)
+        self.graph_builder.add_node("fetch_news", ai_news_node.fetch_news)
+        self.graph_builder.add_node("summarize_news", ai_news_node.summarize_news)
+        self.graph_builder.add_node("save_result", ai_news_node.save_result)
+
+        # Router entry and conditional edges
+        self.graph_builder.set_entry_point("router")
+        
+        def route_intent(state: State):
+            return state.get("intent", "basic")
+
+        self.graph_builder.add_conditional_edges(
+            "router",
+            route_intent,
+            {
+                "basic": "basic_chat",
+                "web_search": "web_search_chatbot",
+                "ai_news": "fetch_news"
+            }
+        )
+
+        # Basic Chat edge
+        self.graph_builder.add_edge("basic_chat", END)
+
+        # Web Search edges
+        self.graph_builder.add_conditional_edges("web_search_chatbot", tools_condition)
+        self.graph_builder.add_edge("tools", "web_search_chatbot")
+
+        # AI News edges
+        self.graph_builder.add_edge("fetch_news", "summarize_news")
+        self.graph_builder.add_edge("summarize_news", "save_result")
+        self.graph_builder.add_edge("save_result", END)
+
+
     def setup_graph(self, usecase: str):
         """
         Sets up the graph for the selected use case.
         """
         if usecase == "Basic Chatbot":
             self.basic_chatbot_build_graph()
-        if usecase == "Chatbot With Web":
+        elif usecase == "Chatbot With Web":
             self.chatbot_with_tools_build_graph()
-        if usecase == "AI News":
+        elif usecase == "AI News":
             self.ai_news_builder_graph()
+        elif usecase == "Multi-Agent System":
+            self.multi_agent_build_graph()
 
         return self.graph_builder.compile()

@@ -2,226 +2,125 @@
 
 ## 🔧 Deployed on AWS EC2 with Jenkins CI/CD Pipeline
 
-⚡ Production Deployment | 🧠 Multi-Agent AI | 🌐 Web-Enabled | 🐳 Dockerized | 🔁 Automated CI/CD
+⚡ Production Deployment | 🧠 Multi-Agent Router | 🌐 Web-Enabled | 🐳 Dockerized | 🔁 Automated CI/CD
+
+---
 
 ## 🌟 Project Overview
 
-This project is a **production-ready Agentic AI Chatbot system** built using:
+This is a **production-grade Multi-Agent AI system** built using **LangGraph** for orchestration. Unlike standard chatbots, this system features an intelligent **Supervisor Router** that dynamically classifies user intent and delegates tasks to specialized sub-agents.
 
-*   **LangGraph (StateGraph-based multi-agent workflow)  
-    **
-*   **Groq LLMs (Llama models)  
-    **
-*   **Tavily Search API  
-    **
-*   **Streamlit Frontend  
-    **
+### Key Capabilities:
+- **Semantic Routing**: Automatically detects if the user wants to chat, search the web, or get AI news.
+- **Web-Augmented Reasoning**: Real-time information retrieval using the Tavily Search API.
+- **Automated AI News Pipeline**: Fetches, summarizes, and saves AI news reports locally in Markdown format.
+- **Enterprise-Ready Infrastructure**: Fully containerized with Docker and deployed via a Jenkins CI/CD pipeline on AWS EC2.
 
-The entire system is:
+---
 
-✅ Dockerized  
-✅ Hosted on **AWS EC2  
-**✅ Integrated with **Jenkins CI/CD Pipeline running on EC2  
-**✅ Automatically deployed on every GitHub push
+## 🏗️ System Architecture
 
-# 🏗️ Production Architecture
+The core of the application is a **Stateful Multi-Agent Graph**. The **Router Node** acts as the brain, determining the execution path based on the user's message.
 
-## 🔹 Infrastructure Setup (AWS)
-
-*   🖥️ **EC2 Instance  
-    **
-    *   Ubuntu Server  
-        
-    *   Docker Installed  
-        
-    *   Jenkins Installed  
-        
-    *   Git Installed  
-        
-    *   Security Groups configured (Ports 22, 8080, 8501 open)  
-        
-*   🔁 **Jenkins running inside EC2  
-    **
-    *   Configured with GitHub Webhook  
-        
-    *   Auto-triggers on push  
-        
-    *   Builds Docker image  
-        
-    *   Deploys updated container  
-        
-*   🌐 **Application deployed on EC2 Public IP  
-    **
-    *   Streamlit exposed on Port 8501  
-        
-    *   Accessible via:  
-        
-*   http://<EC2-Public-IP>:8501  
+```mermaid
+flowchart TD
+    START((Start)) --> Router[Router Node]
     
+    Router -->|intent == 'basic'| Basic[Basic Chatbot Node]
+    Router -->|intent == 'web_search'| Web[Web Search Chatbot Node]
+    Router -->|intent == 'ai_news'| FetchNews[Fetch News Node]
 
-# 🧠 AI System Features
+    %% Basic Flow
+    Basic --> END((End))
 
-## ✨ Multi-Agent Architecture (LangGraph)
+    %% Web Search Flow
+    Web -->|tools needed| Tools[Tool Node: Tavily]
+    Tools --> Web
+    Web -->|no tools needed| END
 
-Built using **StateGraph workflow orchestration**, where each capability is a modular node:
+    %% AI News Flow
+    FetchNews --> Summarize[Summarize News Node]
+    Summarize --> Save[Save Result Node]
+    Save --> END
+```
 
-*   BasicChatbotNode  
-    
-*   ChatbotWithToolNode  
-    
-*   AINewsNode  
-    
+---
 
-Centralized state management ensures smooth data flow between agents.
+## 🧠 AI System Features
 
-## 🤖 Intelligent Modes
+### 1️⃣ Supervisor Router (The Brain)
+Using a high-performance **Llama 3.1** model via **Groq**, the router analyzes natural language to classify intent into:
+- `basic`: General conversation.
+- `web_search`: Factual queries requiring real-time web access.
+- `ai_news`: Requests for AI industry updates (Daily/Weekly/Monthly).
 
-### 1️⃣ Basic AI Chatbot
+### 2️⃣ Web-Enabled Agent
+An autonomous agent bound to the **Tavily Search API**. It can pause its reasoning, execute web searches, and incorporate the results into a final context-aware response.
 
-*   Direct Groq LLM interaction  
-    
-*   Ultra-fast inference  
-    
-*   Lightweight conversational mode  
-    
+### 3️⃣ AI News ETL Pipeline
+A dedicated 3-step workflow:
+1. **Fetch**: Scrapes the latest AI news using specific search parameters.
+2. **Summarize**: Uses LLM to condense information into a structured Markdown summary.
+3. **Save**: Persists the summary to `AINews/daily_summary.md` for offline reading.
 
-### 2️⃣ Web-Enabled Chatbot
+---
 
-*   Real-time search using Tavily API  
-    
-*   Tool-augmented reasoning  
-    
-*   Context-aware responses  
-    
-
-### 3️⃣ AI News Automation
-
-*   Fetches latest AI news  
-    
-*   Supports Daily / Weekly / Monthly summaries  
-    
-*   Converts to Markdown format  
-    
-*   Automatically saves reports inside:  
-    
-
-./AINews/
-
-# ⚡ LLM Models Used
-
-*   Llama 3.3–70B  
-    
-*   Llama 3.1–8B  
-    
-*   Powered by Groq hardware acceleration  
-    
-
-# 🐳 Dockerized Deployment
-
-The entire application is containerized for portability and production reliability.
-
-### 🔹 Build Image
-
-docker build -t agentic-ai-chatbot .
-
-### 🔹 Run Container
-
-docker run -d -p 8501:8501 agentic-ai-chatbot
-
-# 🔁 Jenkins CI/CD Pipeline (Running on EC2)
-
-## ⚙️ CI/CD Flow
-
-1.  Developer pushes code to GitHub  
-    
-2.  GitHub webhook triggers Jenkins  
-    
-3.  Jenkins:  
-    *   Pulls latest code  
-        
-    *   Builds Docker image  
-        
-    *   Stops old container  
-        
-    *   Runs new container  
-        
-4.  Updated application goes live automatically  
-    
-
-## 📄 Jenkinsfile Overview
-
-Pipeline stages:
-
-*   ✔ Checkout Code  
-    
-*   ✔ Build Docker Image  
-    
-*   ✔ Stop Old Container  
-    
-*   ✔ Run New Container  
-    
-*   ✔ Verify Deployment  
-    
-
-This ensures zero manual deployment effort.
-
-# 🛠️ Tech Stack
+## 🛠️ Tech Stack
 
 | Layer | Technology |
 | --- | --- |
-| 🧠 Orchestration | LangGraph, LangChain |
-| 🤖 LLM | Groq (Llama 3 Models) |
-| 🔎 Search | Tavily API |
-| 🎨 Frontend | Streamlit |
-| 🐍 Backend | Python 3.10 |
-| 🐳 Containerization | Docker |
-| 🔁 CI/CD | Jenkins (Hosted on EC2) |
-| ☁️ Cloud | AWS EC2 |
+| **Orchestration** | LangGraph, LangChain |
+| **LLM Engine** | Groq (Llama 3.3-70B, Llama 3.1-8B) |
+| **Search Engine** | Tavily API |
+| **UI Framework** | Streamlit |
+| **Infrastructure** | Docker, AWS EC2 |
+| **CI/CD** | Jenkins |
 
-# 📂 Project Structure
+---
 
-├── app.py
+## 📂 Project Structure
 
-├── nodes/
+```text
+src/langgraphagenticai/
+├── graph/                  # Graph orchestration & wiring
+│   └── graph_builder.py    # Main StateGraph definition
+├── nodes/                  # specialized Agent nodes
+│   ├── router_node.py      # Supervisor logic
+│   ├── basic_chatbot.py    # Standard chat
+│   ├── chatbot_with_tool.py # Search-enabled chat
+│   └── ai_news_node.py     # News ETL logic
+├── state/                  # Shared state definitions
+├── tools/                  # External tool integrations (Tavily)
+├── ui/                     # Streamlit frontend components
+└── main.py                 # Application entry point
+```
 
-│ ├── basic\_chatbot.py
+---
 
-│ ├── chatbot\_with\_tool.py
+## 🚀 Deployment & CI/CD
 
-│ └── ai\_news.py
+The system is hosted on **AWS EC2** and managed by **Jenkins**.
 
-├── AINews/
+### ⚙️ CI/CD Flow:
+1. **Push**: Developer pushes code to GitHub.
+2. **Trigger**: GitHub Webhook notifies Jenkins.
+3. **Build**: Jenkins builds a new Docker image on the EC2 instance.
+4. **Deploy**: Jenkins stops the old container and spins up the new one.
+5. **Verify**: Automated checks ensure the Streamlit app is live on port `8501`.
 
-├── Dockerfile
+### Local Development:
+```bash
+# Build the image
+docker build -t agentic-ai-chatbot .
 
-├── Jenkinsfile
+# Run the container
+docker run -d -p 8501:8501 --env-file .env agentic-ai-chatbot
+```
 
-├── requirements.txt
+---
 
-└── README.md
+## 👨‍💻 Author
 
-# 🌍 Live Deployment
-
-*   Hosted on **AWS EC2  
-    **
-*   Jenkins running on same EC2 instance  
-    
-*   Docker container serving Streamlit app  
-    
-*   Public access via EC2 IP  
-    
-
-# 🎯 Why This Project is Production-Grade
-
-✔ Real multi-agent workflow (LangGraph)  
-✔ Tool-augmented LLM reasoning  
-✔ Fully Dockerized  
-✔ Automated CI/CD pipeline  
-✔ Cloud deployment on AWS  
-✔ Scalable infrastructure-ready design
-
-# 👨‍💻 Author
-
-**Sanjaysai Poloji  
-**AI & Systems Engineering Enthusiast  
+**Sanjaysai Poloji**  
+AI & Systems Engineering Enthusiast  
 Cloud | DevOps | Agentic AI | Production Systems

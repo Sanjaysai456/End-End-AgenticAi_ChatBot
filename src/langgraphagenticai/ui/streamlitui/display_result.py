@@ -15,48 +15,38 @@ class DisplayResultStreamlit:
         user_message = self.user_message
         print(user_message)
 
-        if usecase == "Basic Chatbot":
-            for event in graph.stream({'messages': ("user", user_message)}):
-                print(event.values())
-                for value in event.values():
-                    print(value['messages'])
-                    with st.chat_message("user"):
-                        st.write(user_message)
-                    with st.chat_message("assistant"):
-                        st.write(value["messages"].content)
-
-        elif usecase == "Chatbot With Web":
-
-            # Properly wrap user input as HumanMessage
-            initial_state = {"messages": [HumanMessage(content=user_message)]}
-
-            res = graph.invoke(initial_state)
-
-            # Show user message once
+        if usecase == "Multi-Agent System":
+            
             with st.chat_message("user"):
                 st.write(user_message)
 
-            # Only show FINAL AI response (hide tool JSON)
-            for message in reversed(res["messages"]):
-                if isinstance(message, AIMessage) and message.content:
-                    with st.chat_message("assistant"):
-                        st.write(message.content)
-                    break
+            initial_state = {"messages": [HumanMessage(content=user_message)]}
 
-        elif usecase == "AI News":
-            frequency = self.user_message
-            with st.spinner("Fetching and summarizing news... ⏳"):
-                result = graph.invoke({"messages": frequency})
+            with st.spinner("Agent is thinking... ⏳"):
+                res = graph.invoke(initial_state)
+
+            intent = res.get("intent", "basic")
+
+            if intent == "ai_news":
                 try:
-                    # Read the markdown file
-                    AI_NEWS_PATH = f"./AINews/{frequency.lower()}_summary.md"
-                    with open(AI_NEWS_PATH, "r") as file:
+                    frequency = res.get("frequency", "daily").lower()
+                    if not frequency:
+                        frequency = "daily"
+                    AI_NEWS_PATH = f"./AINews/{frequency}_summary.md"
+                    with open(AI_NEWS_PATH, "r", encoding='utf-8') as file:
                         markdown_content = file.read()
-
-                    # Display the markdown content in Streamlit
-                    st.markdown(markdown_content, unsafe_allow_html=True)
+                    
+                    with st.chat_message("assistant"):
+                        st.markdown(markdown_content, unsafe_allow_html=True)
 
                 except FileNotFoundError:
                     st.error(f"News Not Generated or File not found: {AI_NEWS_PATH}")
                 except Exception as e:
                     st.error(f"An error occurred: {str(e)}")
+            else:
+                # For basic chat and web search
+                for message in reversed(res["messages"]):
+                    if isinstance(message, AIMessage) and message.content:
+                        with st.chat_message("assistant"):
+                            st.write(message.content)
+                        break

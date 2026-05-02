@@ -1,2 +1,7 @@
 venv/
 .env
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+AINews/*.md
+!AINews/daily_summary.md

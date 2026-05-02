@@ -19,10 +19,7 @@ def load_langgraph_agenticai_app():
         return
 
     # Handle user input
-    if st.session_state.IsFetchButtonClicked:
-        user_message = st.session_state.timeframe
-    else:
-        user_message = st.chat_input("Enter your message:")
+    user_message = st.chat_input("Enter your message:")
 
     if not user_message:
         return

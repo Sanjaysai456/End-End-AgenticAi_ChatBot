@@ -22,7 +22,9 @@ class AINewsNode:
 
     def fetch_news(self, state: dict) -> dict:
 
-        frequency = state['messages'][0].content.lower()
+        frequency = state.get('frequency', 'daily').lower()
+        if not frequency:
+            frequency = 'daily'
         self.state['frequency'] = frequency
 
         time_range_map = {'daily': 'd', 'weekly': 'w', 'monthly': 'm', 'year': 'y'}
