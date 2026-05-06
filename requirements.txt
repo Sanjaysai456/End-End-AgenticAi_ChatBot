@@ -1,10 +1,15 @@
+gunicorn
 langchain
 langgraph
 langchain_community
 langchain_core
 langchain_groq
 langchain_openai
+langchain-huggingface
 faiss-cpu
-streamlit
+flask
+flask-cors
+pypdf
+sentence-transformers
 tavily-python
-dotenv
+python-dotenv

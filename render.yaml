@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: agentiq
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter          # free tier — change to "standard" for more RAM
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false        # you will paste the value in the Render dashboard
+      - key: TAVILY_API_KEY
+        sync: false
+      - key: PORT
+        value: 5000
+    healthCheckPath: /health

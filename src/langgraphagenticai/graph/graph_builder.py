@@ -6,6 +6,7 @@ from src.langgraphagenticai.tools.search_tool import get_tools,create_tool_node
 from langgraph.prebuilt import tools_condition,ToolNode
 from src.langgraphagenticai.nodes.chatbot_with_Tool_node import ChatbotWithToolNode
 from src.langgraphagenticai.nodes.ai_news_node import AINewsNode
+from src.langgraphagenticai.nodes.medical_rag_node import MedicalRAGNode
 
 
 class GraphBuilder:
@@ -93,6 +94,9 @@ class GraphBuilder:
         
         ai_news_node = AINewsNode(self.llm)
 
+        # Medical RAG agent — shared singleton so FAISS index stays in memory
+        medical_rag_node = MedicalRAGNode(self.llm)
+
         # Add nodes
         self.graph_builder.add_node("router", router.process)
         self.graph_builder.add_node("basic_chat", basic_chatbot.process)
@@ -101,6 +105,7 @@ class GraphBuilder:
         self.graph_builder.add_node("fetch_news", ai_news_node.fetch_news)
         self.graph_builder.add_node("summarize_news", ai_news_node.summarize_news)
         self.graph_builder.add_node("save_result", ai_news_node.save_result)
+        self.graph_builder.add_node("medical_rag", medical_rag_node.process)
 
         # Router entry and conditional edges
         self.graph_builder.set_entry_point("router")
@@ -114,7 +119,8 @@ class GraphBuilder:
             {
                 "basic": "basic_chat",
                 "web_search": "web_search_chatbot",
-                "ai_news": "fetch_news"
+                "ai_news": "fetch_news",
+                "medical": "medical_rag",
             }
         )
 
@@ -129,6 +135,9 @@ class GraphBuilder:
         self.graph_builder.add_edge("fetch_news", "summarize_news")
         self.graph_builder.add_edge("summarize_news", "save_result")
         self.graph_builder.add_edge("save_result", END)
+
+        # Medical RAG edge
+        self.graph_builder.add_edge("medical_rag", END)
 
 
     def setup_graph(self, usecase: str):

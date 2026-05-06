@@ -3,5 +3,10 @@ venv/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+
+# FAISS index — auto-rebuilt on server from the PDF
+medical_rag_index/
+
+# Generated news files
 AINews/*.md
-!AINews/daily_summary.md
+!AINews/daily_summary.md

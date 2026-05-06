@@ -1,5 +1,4 @@
-from src.langgraphagenticai.main import load_langgraph_agenticai_app
+from flask_app import app
 
-if __name__=="__main__":
-    load_langgraph_agenticai_app()
-    
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=False)
