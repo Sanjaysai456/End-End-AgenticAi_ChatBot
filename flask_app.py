@@ -40,21 +40,6 @@ except Exception as e:
     print(f"[ERROR] Failed to initialize graph: {e}")
     graph = None
 
-# ─────────────────────────────────────────────
-# Pre-warm FAISS Medical Index at Startup
-# ─────────────────────────────────────────────
-# Build (or load from disk) the FAISS index NOW — before any user request.
-# This ensures ZERO wait time for any user, including the very first one.
-# The 1-2 min build cost is paid once during server startup / deployment.
-try:
-    from src.langgraphagenticai.nodes.medical_rag_node import MedicalRAGNode
-    print("[INIT] Pre-warming Medical RAG FAISS index...")
-    _prewarm_rag = MedicalRAGNode(model)
-    _prewarm_rag._build_or_load_vectorstore()
-    print("[OK] Medical RAG index ready — all users will get instant responses!")
-except Exception as e:
-    print(f"[WARN] Medical RAG pre-warm failed (will build on first query): {e}")
-
 
 # ─────────────────────────────────────────────
 # Routes
